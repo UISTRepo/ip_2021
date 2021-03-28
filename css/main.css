@@ -13,7 +13,8 @@
 
 .chat-window .card-body{
     height: 335px;
-    padding: 8px 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .chat-window .card-body .messages .thumb img{

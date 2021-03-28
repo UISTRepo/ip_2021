@@ -16,8 +16,7 @@ function openChat(user_id){
 
         newChatWindow = chatTemplate.cloneNode(true);
         newChatWindow.id = id;
-        newChatWindow.style.right = totalChatsOpened*350 + 'px';
-        totalChatsOpened++;
+        newChatWindow.style.right = totalChatsOpened++*350 + 'px';
 
         var body = document.getElementsByTagName('body')[0];
 
@@ -25,6 +24,7 @@ function openChat(user_id){
     }
 
     newChatWindow.querySelector(".message-input").focus();
+    newChatWindow.querySelector(".name-placeholder").innerHTML = "The Name";
 
 }
 
