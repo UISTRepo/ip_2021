@@ -9,35 +9,27 @@ function openChat(user_id){
 
     var id = 'chat_' + user_id;
 
-    var alreadyOpened = document.getElementById(id);
+    var newChatWindow = document.getElementById(id);
 
-    if(alreadyOpened){
-        var textInput = alreadyOpened.querySelector(".message-input");
-        textInput.focus();
+    if(!newChatWindow){
+        var chatTemplate = document.getElementById('chatWindowTemplate');
 
-        return;
+        newChatWindow = chatTemplate.cloneNode(true);
+        newChatWindow.id = id;
+        newChatWindow.style.right = totalChatsOpened*350 + 'px';
+        totalChatsOpened++;
+
+        var body = document.getElementsByTagName('body')[0];
+
+        body.appendChild(newChatWindow);
     }
 
-    var chatTemplate = document.getElementById('chatWindowTemplate');
-
-    var newChatWindow = chatTemplate.cloneNode(true);
-    newChatWindow.id = id;
-    newChatWindow.style.right = totalChatsOpened*350 + 'px';
-    totalChatsOpened++;
-
-    var body = document.getElementsByTagName('body')[0];
-
-    body.appendChild(newChatWindow);
+    newChatWindow.querySelector(".message-input").focus();
 
 }
 
-
 function closeChat(btn){
-    var parent1 = btn.parentElement;
-    var parent2 = parent1.parentElement;
-    var parent3 = parent2.parentElement;
-    parent3.remove();
-
+    btn.closest('.chat-window').remove();
     repositionOpenedChats();
 }
 
