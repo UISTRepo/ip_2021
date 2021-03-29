@@ -128,6 +128,11 @@ function addChatMessage(message, chat_id){
 
     var chatWindow = document.getElementById(chat_id);
 
+    var defaultMsg = document.getElementById(chat_id).querySelector('.empty-chat-message');
+    if(defaultMsg){
+        defaultMsg.style.display = 'none';
+    }
+
     var messagesHolder = chatWindow.querySelector('.messages');
 
     messagesHolder.appendChild(newMessage);
