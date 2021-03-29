@@ -50,3 +50,7 @@
 .chat-name-select .fa-circle{
     font-size: 10px;
 }
+
+.chat-window .empty-chat-message{
+    display: none;
+}

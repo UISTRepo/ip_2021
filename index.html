@@ -110,111 +110,14 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="empty-chat-message">
+                No messages
+                <div>
+                    Say "Hello"...
+                </div>
+            </div>
             <div class="messages">
-                <div class="his-message row">
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-message row">
-                    <div class="col-9 text-end">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                </div>
-                <div class="his-message row">
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-message row">
-                    <div class="col-9 text-end">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                </div>
-                <div class="his-message row">
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-message row">
-                    <div class="col-9 text-end">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                </div>
-                <div class="his-message row">
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-message row">
-                    <div class="col-9 text-end">
-                        <div class="message">
-                            <div>Some text</div>
-                            <div class="timestamp">Fri 15:22</div>
-                        </div>
-                    </div>
-                    <div class="col-3 text-center">
-                        <div class="thumb">
-                            <img src="https://via.placeholder.com/100">
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="card-footer">
@@ -223,7 +126,7 @@
                     <input class="message-input form-control" type="text" style="width: 100%">
                 </div>
                 <div class="col-3 text-end" style="padding-top: 3px">
-                    <button class="btn btn-sm btn-outline-primary">Send</button>
+                    <button class="send-message-button btn btn-sm btn-outline-primary" onclick="sendMessage(this)">Send</button>
                 </div>
             </div>
         </div>
