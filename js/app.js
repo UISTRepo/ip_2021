@@ -2,35 +2,15 @@ var totalChatsOpened = 0;
 
 var myId = 1;
 
-var chatData = [
-    {
-        user_id: 2,
-        name: 'Mike',
-        messages: [
-            {
-                id: 3,
-                user_id: 2,
-                text: 'Mike 1st message',
-                thumb: 'https://via.placeholder.com/100',
-                created_at: '2021-03-29 08:00:03'
-            }
-        ]
-    },
-    {
-        user_id: 3,
-        name: 'Jessica',
-        messages: [
+var chatData = [];
 
-        ]
-    },
-    {
-        user_id: 4,
-        name: 'Bob',
-        messages: [
+function getChats(){
+    fetch('http://localhost:3000/chats')
+        .then(response => response.json())
+        .then(data => console.log(data));
+}
 
-        ]
-    }
-];
+getChats();
 
 function openChat(user_id){
 
@@ -57,30 +37,32 @@ function openChat(user_id){
 
     newChatWindow.querySelector(".message-input").focus();
 
-    var chatMessages = chatData.filter(function (item) {
-        return item.user_id == user_id;
-    })[0];
+    fetch('http://localhost:3000/chats/' + user_id)
+        .then(response => response.json())
+        .then(chatMessages => {
 
-    newChatWindow.querySelector(".name-placeholder").innerHTML = chatMessages.name;
+            newChatWindow.querySelector(".name-placeholder").innerHTML = chatMessages.name;
 
-    var messageInput = newChatWindow.getElementsByTagName('input')[0];
+            var messageInput = newChatWindow.getElementsByTagName('input')[0];
 
-    messageInput.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            newChatWindow.getElementsByClassName('send-message-button')[0].click();
-        }
-    });
+            messageInput.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    newChatWindow.getElementsByClassName('send-message-button')[0].click();
+                }
+            });
 
-    if(!chatMessages.messages.length){
-        newChatWindow.querySelector('.empty-chat-message').style.display = 'initial';
-    }
+            if(!chatMessages.messages.length){
+                newChatWindow.querySelector('.empty-chat-message').style.display = 'initial';
+            }
 
-    newChatWindow.querySelector('.messages').innerHTML = "";
+            newChatWindow.querySelector('.messages').innerHTML = "";
 
-    chatMessages.messages.forEach(function (message) {
-        addChatMessage(message, chat_id);
-    });
+            chatMessages.messages.forEach(function (message) {
+                addChatMessage(message, chat_id);
+            });
+
+        });
 
 }
 
@@ -128,7 +110,7 @@ function addChatMessage(message, chat_id){
 
     var chatWindow = document.getElementById(chat_id);
 
-    var defaultMsg = document.getElementById(chat_id).querySelector('.empty-chat-message');
+    var defaultMsg = chatWindow.querySelector('.empty-chat-message');
     if(defaultMsg){
         defaultMsg.style.display = 'none';
     }
@@ -202,4 +184,12 @@ function repositionOpenedChats(){
         }
     }
 
+}
+
+function getData(){
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+        })
 }
