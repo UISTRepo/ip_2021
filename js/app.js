@@ -2,7 +2,7 @@ var totalChatsOpened = 0;
 
 var myId = 1;
 
-var chatData = [];
+var chatItemData = [];
 
 function getChats(){
     fetch('http://localhost:3000/chats')
@@ -39,9 +39,11 @@ function openChat(user_id){
 
     fetch('http://localhost:3000/chats/' + user_id)
         .then(response => response.json())
-        .then(chatMessages => {
+        .then(chatItem => {
 
-            newChatWindow.querySelector(".name-placeholder").innerHTML = chatMessages.name;
+            chatItemData = chatItem;
+
+            newChatWindow.querySelector(".name-placeholder").innerHTML = chatItem.name;
 
             var messageInput = newChatWindow.getElementsByTagName('input')[0];
 
@@ -52,13 +54,13 @@ function openChat(user_id){
                 }
             });
 
-            if(!chatMessages.messages.length){
+            if(!chatItem.messages.length){
                 newChatWindow.querySelector('.empty-chat-message').style.display = 'initial';
             }
 
             newChatWindow.querySelector('.messages').innerHTML = "";
 
-            chatMessages.messages.forEach(function (message) {
+            chatItem.messages.forEach(function (message) {
                 addChatMessage(message, chat_id);
             });
 
@@ -71,7 +73,7 @@ function addChatMessage(message, chat_id){
     var newMessage = document.createElement('div');
     newMessage.className = 'row';
 
-    var isMine = message.user_id == myId;
+    var isMine = message.user1 == myId;
 
     if(isMine){
         newMessage.id = message.id;
@@ -136,37 +138,43 @@ function sendMessage(btn){
         return;
     }
 
-    var lastId = 0;
-
-    chatData.forEach(function (chat){
-        chat.messages.forEach(function (message){
-            lastId = message.id
-        })
-    })
-
     var messageData = {
-        id: ++lastId,
-        user_id: myId,
-        text: messageElement.value,
-        thumb: 'https://via.placeholder.com/100',
-        created_at: new Date()
+        user1: myId,
+        user2: chat_user_id,
+        text: messageElement.value
     }
+
+    fetch('http://localhost:3000/chats/newMessage', {
+        method: "POST",
+        body: JSON.stringify(messageData),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            messageData.thumb = data.thumb;
+            messageData.created_at = new Date();
+            chatItemData.messages.push(messageData);
+            addChatMessage(messageData, chat_id);
+        });
 
     messageElement.value = "";
     messageElement.focus();
 
-    var chatMessages = chatData.filter(function (chat){
-        return chat.user_id == chat_user_id;
-    })[0];
-
-    chatMessages.messages.push(messageData);
-    addChatMessage(messageData, chat_id);
 }
 
 function removeMessage(id){
     document.getElementById(id).remove();
 
-    // TODO for students: remove the message id = id from the messages array in the chatData array;
+    fetch('http://localhost:3000/chats/' + id, {
+        method: "DELETE"
+    })
+        .then(response => response.json())
+        .then(data => {
+           console.log(data);
+        });
+
 }
 
 function closeChat(btn){
